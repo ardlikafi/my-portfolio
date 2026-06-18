@@ -20,46 +20,38 @@ export default function Background3D() {
     }
     window.addEventListener('resize', handleResize)
 
-    // Morphing color blobs/spots
+    // Morphing luxury color blobs
     const blobs = [
       {
         x: width * 0.2,
         y: height * 0.3,
         r: Math.min(width, height) * 0.5,
-        vx: 0.8,
-        vy: 0.6,
-        color: 'rgba(108, 92, 231, 0.15)', // var(--c-primary) purple
+        vx: 0.3,
+        vy: 0.2,
+        color: 'rgba(197, 168, 128, 0.04)', // luxury gold
       },
       {
         x: width * 0.8,
         y: height * 0.2,
         r: Math.min(width, height) * 0.6,
-        vx: -0.6,
-        vy: 0.7,
-        color: 'rgba(0, 245, 212, 0.12)', // var(--c-accent) cyan
+        vx: -0.2,
+        vy: 0.3,
+        color: 'rgba(99, 102, 241, 0.05)', // indigo
       },
       {
         x: width * 0.5,
         y: height * 0.8,
         r: Math.min(width, height) * 0.55,
-        vx: 0.5,
-        vy: -0.5,
-        color: 'rgba(0, 187, 249, 0.12)', // var(--c-accent-2) blue
-      },
-      {
-        x: width * 0.3,
-        y: height * 0.7,
-        r: Math.min(width, height) * 0.45,
-        vx: -0.7,
-        vy: -0.6,
-        color: 'rgba(15, 15, 35, 0.5)', // deep violet
+        vx: 0.15,
+        vy: -0.15,
+        color: 'rgba(30, 27, 75, 0.3)', // dark navy
       }
     ]
 
     // Render loop
     const render = () => {
-      // Clear background with extremely deep dark space color
-      ctx.fillStyle = '#03030b'
+      // Clear background with obsidian black
+      ctx.fillStyle = '#050508'
       ctx.fillRect(0, 0, width, height)
 
       // Enable screen blending for smooth gradient overlaps
@@ -88,7 +80,7 @@ export default function Background3D() {
           blob.r
         )
         grad.addColorStop(0, blob.color)
-        grad.addColorStop(1, 'rgba(3, 3, 11, 0)')
+        grad.addColorStop(1, 'rgba(5, 5, 8, 0)')
 
         ctx.fillStyle = grad
         ctx.beginPath()
@@ -98,14 +90,6 @@ export default function Background3D() {
 
       // Revert composite operation
       ctx.globalCompositeOperation = 'source-over'
-
-      // Subtle noise texture overlay for high-fidelity cinema feel
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.003)'
-      for (let i = 0; i < 4; i++) {
-        const x = Math.random() * width
-        const y = Math.random() * height
-        ctx.fillRect(x, y, 2, 2)
-      }
 
       animationFrameId = requestAnimationFrame(render)
     }

@@ -25,3 +25,7 @@ dist-ssr
 
 # Backups
 backup/
+
+# Prompts and briefs
+PROMPT.MD
+REVISI.MD
