@@ -1,0 +1,232 @@
+import { 
+  SiFlutter, SiAndroid, SiReact, SiHtml5, SiJavascript, 
+  SiMysql, SiPostgresql, SiMongodb, SiNodedotjs, SiPhp, SiGit, 
+  SiFigma, SiDocker, SiTensorflow, SiPython, SiPytorch, SiKeras 
+} from 'react-icons/si'
+
+export const portfolioData = {
+  translations: {
+    en: {
+      navHome: 'Home',
+      navAbout: 'About',
+      navSkills: 'Skills',
+      navProjects: 'Projects',
+      navExperience: 'Experience',
+      navContact: 'Contact',
+      heroBadge: 'Open for Opportunities',
+      heroTitle: "Crafting High-Performance",
+      heroTitleHighlight: "Digital Ecosystems",
+      heroSubtitle: "Informatics scholar specializing in high-fidelity Flutter Mobile Apps, performant React Web Applications, and advanced Machine Learning models.",
+      heroCTAExplore: 'Explore Projects',
+      heroCTALetsTalk: 'Let\'s Connect',
+      aboutTitle: 'Cognitive Profile',
+      aboutSubtitle: 'Synthesizing mobile engineering, web systems, and intelligence.',
+      aboutP1: 'As an Informatics scholar, I am driven by the intersection of computational logic and fluid user interaction. I architect clean, robust applications that bridge complex backend algorithms with pixel-perfect designs.',
+      aboutP2: 'My core technical competency lies in Flutter & Dart for seamless cross-platform mobile environments, modern React frameworks for interactive web ecosystems, and Python-based Machine Learning models to derive intelligence from complex datasets.',
+      aboutP3: 'I excel at transforming abstract system architectures into tangible, elegant digital products. Eager to collaborate, fast to adapt, and constantly pushing boundary technologies.',
+      aboutHighlight1: 'Adaptive Intelligence',
+      aboutHighlight2: 'State Management Expert',
+      aboutHighlight3: 'Cloud Integrations',
+      aboutHighlight4: 'Agile Architect',
+      skillsTitle: 'System & Tooling Stack',
+      skillsSubtitle: 'A structured taxonomy of technologies I utilize to build scalable solutions.',
+      skillsMobile: 'Mobile Engineering',
+      skillsWeb: 'Frontend Systems',
+      skillsBackend: 'Data & Infrastructure',
+      skillsTools: 'Tools & Workflows',
+      projectsTitle: 'Curated Prototypes',
+      projectsSubtitle: 'Explore my verified technical builds, spanning mobile, web, and artificial intelligence.',
+      projectsAll: 'All Systems',
+      projectsFlutter: 'Flutter Apps',
+      projectsWeb: 'Web Systems',
+      projectsML: 'Machine Learning',
+      projectsView: 'Examine Source',
+      experienceTitle: 'Academic & Professional Timeline',
+      experienceSubtitle: 'A chronological view of my growth as an engineer and researcher.',
+      contactTitle: 'Establish Connection',
+      contactSubtitle: 'Let\'s collaborate on deep-tech systems, mobile solutions, or AI integration.',
+      contactFormName: 'Name',
+      contactFormEmail: 'Email Address',
+      contactFormSubject: 'Subject',
+      contactFormMessage: 'Transmission Message',
+      contactFormSubmit: 'Send Message',
+      contactFormSending: 'Sending...',
+      contactFormSuccess: 'Message transmitted successfully!',
+      contactFormError: 'Error. Please retry.',
+      contactFindMe: 'Direct Channels',
+      contactFindMeDesc: 'Reach out directly through active corporate or professional portals.',
+      footerText: 'Ardli Kafi Murobby. Engineered with premium WebGL & React.'
+    },
+    id: {
+      navHome: 'Beranda',
+      navAbout: 'Tentang',
+      navSkills: 'Keahlian',
+      navProjects: 'Proyek',
+      navExperience: 'Pengalaman',
+      navContact: 'Kontak',
+      heroBadge: 'Terbuka untuk Peluang',
+      heroTitle: "Membangun Ekosistem",
+      heroTitleHighlight: "Digital Berkinerja Tinggi",
+      heroSubtitle: "Mahasiswa Informatika yang berspesialisasi dalam Aplikasi Mobile Flutter berpresisi tinggi, Aplikasi Web React yang performan, dan model Machine Learning tingkat lanjut.",
+      heroCTAExplore: 'Eksplorasi Proyek',
+      heroCTALetsTalk: 'Mari Terhubung',
+      aboutTitle: 'Profil Kognitif',
+      aboutSubtitle: 'Mensintesis rekayasa mobile, sistem web, dan kecerdasan buatan.',
+      aboutP1: 'Sebagai akademisi Informatika, saya didorong oleh titik temu antara logika komputasi dan interaksi pengguna yang mulus. Saya mengarsiteki aplikasi bersih dan kokoh yang menjembatani algoritma backend yang kompleks dengan desain piksel yang sempurna.',
+      aboutP2: 'Kompetensi teknis utama saya terletak pada Flutter & Dart untuk lingkungan mobile lintas platform yang mulus, framework React modern untuk ekosistem web interaktif, dan model Machine Learning berbasis Python untuk menghasilkan kecerdasan dari kumpulan data yang kompleks.',
+      aboutP3: 'Saya unggul dalam mengubah arsitektur sistem abstrak menjadi produk digital nyata yang elegan. Bersemangat untuk berkolaborasi, cepat beradaptasi, dan selalu mendorong batas teknologi.',
+      aboutHighlight1: 'Kecerdasan Adaptif',
+      aboutHighlight2: 'Manajemen State Ahli',
+      aboutHighlight3: 'Integrasi Cloud',
+      aboutHighlight4: 'Arsitek Agile',
+      skillsTitle: 'Tumpukan Teknologi',
+      skillsSubtitle: 'Taksonomi terstruktur dari teknologi yang saya gunakan untuk membangun solusi skalabel.',
+      skillsMobile: 'Rekayasa Mobile',
+      skillsWeb: 'Sistem Frontend',
+      skillsBackend: 'Data & Infrastruktur',
+      skillsTools: 'Alat & Alur Kerja',
+      projectsTitle: 'Prototipe Pilihan',
+      projectsSubtitle: 'Jelajahi hasil pengembangan teknis saya, mencakup mobile, web, dan kecerdasan buatan.',
+      projectsAll: 'Semua Sistem',
+      projectsFlutter: 'Aplikasi Flutter',
+      projectsWeb: 'Sistem Web',
+      projectsML: 'Machine Learning',
+      projectsView: 'Lihat Sumber',
+      experienceTitle: 'Lini Masa Akademik & Profesional',
+      experienceSubtitle: 'Pandangan kronologis pertumbuhan saya sebagai insinyur dan peneliti.',
+      contactTitle: 'Mulai Koneksi',
+      contactSubtitle: 'Mari berkolaborasi dalam sistem deep-tech, solusi mobile, atau integrasi AI.',
+      contactFormName: 'Nama',
+      contactFormEmail: 'Alamat Email',
+      contactFormSubject: 'Subjek',
+      contactFormMessage: 'Pesan Transmisi',
+      contactFormSubmit: 'Kirim Pesan',
+      contactFormSending: 'Mengirim...',
+      contactFormSuccess: 'Pesan berhasil dikirim!',
+      contactFormError: 'Terjadi kesalahan. Silakan coba lagi.',
+      contactFindMe: 'Saluran Langsung',
+      contactFindMeDesc: 'Hubungi saya secara langsung melalui portal profesional atau korporat aktif.',
+      footerText: 'Ardli Kafi Murobby. Dibuat dengan WebGL premium & React.'
+    }
+  },
+  skills: [
+    {
+      category: 'mobile',
+      icon: SiFlutter,
+      title: 'Mobile Engineering',
+      tags: ['Flutter (Primary)', 'Dart', 'Android Dev (Basic)', 'iOS Dev (Basic)', 'BLoC / Provider', 'Local DB (Hive, SQLite)']
+    },
+    {
+      category: 'web',
+      icon: SiReact,
+      title: 'Frontend Systems',
+      tags: ['React.js', 'Next.js', 'Vite', 'HTML5', 'CSS3 / Sass', 'JavaScript (ES6+)', 'Three.js / WebGL', 'Framer Motion', 'GSAP']
+    },
+    {
+      category: 'backend',
+      icon: SiNodedotjs,
+      title: 'Data & Infrastructure',
+      tags: ['SQL (PostgreSQL, MySQL)', 'MongoDB', 'Node.js', 'Express.js', 'PHP', 'Firebase Suite', 'RESTful APIs']
+    },
+    {
+      category: 'tools',
+      icon: SiDocker,
+      title: 'Tools & Workflows',
+      tags: ['Git & GitHub', 'Docker', 'Linux CLI', 'Figma UI/UX', 'CI/CD Basics', 'Postman']
+    }
+  ],
+  projects: [
+    {
+      id: 1,
+      category: 'ml',
+      title: 'IntelliPredict: Deep Learning Stock Analysis',
+      titleId: 'IntelliPredict: Analisis Saham Deep Learning',
+      desc: 'An AI-powered forecasting agent built on Long Short-Term Memory (LSTM) recurrent neural networks. Provides directional trends, real-time market sentiment parsing, and predictive charting with WebGL data viz.',
+      descId: 'Agen peramalan berbasis AI yang dibangun di atas LSTM Recurrent Neural Networks. Menyediakan tren arah, parsing sentimen pasar real-time, dan grafik prediktif dengan visualisasi data WebGL.',
+      image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop',
+      tags: ['Python', 'TensorFlow', 'LSTM', 'Flask API', 'Chart.js', 'Pandas'],
+      github: 'https://github.com/ardlikafi'
+    },
+    {
+      id: 2,
+      category: 'ml',
+      title: 'VisionNeuro: Multi-Class Brain Tumor Detection',
+      titleId: 'VisionNeuro: Deteksi Tumor Otak Multi-Kelas',
+      desc: 'High-precision Computer Vision system utilizing custom Convolutional Neural Network (CNN) architectures trained on MRI scan datasets to automate and assist in tumor classification with grad-CAM activation heatmaps.',
+      descId: 'Sistem Computer Vision presisi tinggi menggunakan arsitektur Convolutional Neural Network (CNN) kustom yang dilatih pada dataset pemindaian MRI untuk klasifikasi tumor otomatis disertai heatmap grad-CAM.',
+      image: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600&auto=format&fit=crop',
+      tags: ['PyTorch', 'Computer Vision', 'CNN', 'NumPy', 'OpenCV', 'Streamlit UI'],
+      github: 'https://github.com/ardlikafi'
+    },
+    {
+      id: 3,
+      category: 'flutter',
+      title: 'NextGen Crypto Tracker App',
+      titleId: 'Aplikasi Pelacak Kripto NextGen',
+      desc: 'Real-time cryptocurrency portfolio management. Integrates high-throughput websockets, interactive candle charts, fast filtering, and local encrypted secure storage.',
+      descId: 'Manajemen portofolio mata uang kripto real-time. Mengintegrasikan websocket berkinerja tinggi, grafik lilin interaktif, pemfilteran cepat, dan penyimpanan aman terenkripsi lokal.',
+      image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=600&auto=format&fit=crop',
+      tags: ['Flutter', 'Dart', 'CoinGecko API', 'Websockets', 'Hive Store', 'Provider'],
+      github: 'https://github.com/ardlikafi'
+    },
+    {
+      id: 4,
+      category: 'flutter',
+      title: 'Smart E-Commerce Eco-System',
+      titleId: 'Ekosistem E-Commerce Pintar',
+      desc: 'Comprehensive storefront with nested categories, animated transitions, rapid checkout simulations, and integration with high-performance search indices.',
+      descId: 'Etalase komprehensif dengan kategori bersarang, transisi animasi, simulasi pembayaran cepat, dan integrasi dengan indeks pencarian berkinerja tinggi.',
+      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=600&auto=format&fit=crop',
+      tags: ['Flutter', 'BLoC State', 'Firebase auth', 'Stripe mockup', 'REST API'],
+      github: 'https://github.com/ardlikafi'
+    },
+    {
+      id: 5,
+      category: 'web',
+      title: 'Glassmorphic Crypto Exchange UI',
+      titleId: 'Antarmuka Bursa Kripto Glassmorphic',
+      desc: 'A premium decentralized finance (DeFi) landing interface. Showcases rich micro-animations, GSAP fluid reveal animations, and futuristic neon assets.',
+      descId: 'Antarmuka pendaratan keuangan terdesentralisasi (DeFi) premium. Menampilkan mikro-animasi yang kaya, animasi pengungkapan fluida GSAP, dan aset neon futuristik.',
+      image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=600&auto=format&fit=crop',
+      tags: ['React.js', 'GSAP', 'Framer Motion', 'Sleek CSS', 'Responsive Grid'],
+      github: 'https://github.com/ardlikafi'
+    },
+    {
+      id: 6,
+      category: 'web',
+      title: 'SaaS Interactive Enterprise Dashboard',
+      titleId: 'Dashboard Perusahaan Interaktif SaaS',
+      desc: 'A fully scalable admin portal with draggable UI widgets, dynamic telemetry charts, multi-role user dashboards, and customizable dark modes.',
+      descId: 'Portal admin yang sepenuhnya terukur dengan widget UI yang dapat digeser, grafik telemetri dinamis, dasbor pengguna multi-peran, dan mode gelap yang dapat disesuaikan.',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
+      tags: ['React', 'ChartJS', 'Dynamic Grid', 'Context State', 'Sass Engine'],
+      github: 'https://github.com/ardlikafi'
+    }
+  ],
+  experience: [
+    {
+      date: '2025 (Upcoming)',
+      company: 'High-Tech Software House / Startup',
+      position: 'Software Development Intern',
+      positionId: 'Magang Pengembangan Perangkat Lunak',
+      desc: 'Incoming engineering role focusing on native flutter implementations, performance optimizations across operating system environments, and automated testing rigs.',
+      descId: 'Peran rekayasa masa depan yang berfokus pada implementasi flutter asli, optimalisasi kinerja di berbagai sistem operasi, dan modul pengujian otomatis.'
+    },
+    {
+      date: '2022 - Present',
+      company: 'State Informatics University',
+      position: 'B.Sc in Computer Science / Informatics',
+      positionId: 'Sarjana Komputer (S.Kom) - Informatika',
+      desc: 'Academics centered on algorithm complexity analysis, advanced data structures, discrete models, AI neural routing, and modern software design patterns. Current GPA: 3.8+.',
+      descId: 'Akademik berpusat pada analisis kompleksitas algoritma, struktur data lanjutan, model diskrit, neural routing AI, dan pola desain perangkat lunak modern. IPK saat ini: 3.8+.'
+    },
+    {
+      date: '2023 - 2024',
+      company: 'Student Tech Association',
+      position: 'Dev Lead & Technical Director',
+      positionId: 'Dev Lead & Direktur Teknis',
+      desc: 'Orchestrated tech stacks for internal operations, mentored 30+ students in web design, led mobile application hackathons, and engineered unified campus event platforms.',
+      descId: 'Mengatur tumpukan teknologi untuk operasi internal, membimbing 30+ mahasiswa dalam desain web, memimpin kompetisi pembuatan aplikasi mobile, dan merekayasa platform acara kampus terpadu.'
+    }
+  ]
+}
