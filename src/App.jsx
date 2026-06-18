@@ -12,7 +12,6 @@ import Certificates from './components/Certificates'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { BeamsBackground } from './components/ui/beams-background'
 
 export default function App() {
   const [loading, setLoading] = useState(true)
@@ -163,8 +162,10 @@ export default function App() {
         {loading && <LoadingScreen key="loader" />}
       </AnimatePresence>
       {!loading && (
-        <BeamsBackground className="relative min-h-screen bg-background text-foreground overflow-hidden selection:bg-[#c5a880]/30 selection:text-white">
-          
+        <div className="relative min-h-screen bg-background text-foreground overflow-hidden selection:bg-[#c5a880]/30 selection:text-white">
+          {/* Static premium-bg-glow for GPU-accelerated performance */}
+          <div className="premium-bg-glow" />
+
           {/* Subtle noise grain filter overlay */}
           <div className="noise-overlay" />
 
@@ -187,7 +188,7 @@ export default function App() {
             <Footer lang={lang} />
           </div>
 
-        </BeamsBackground>
+        </div>
       )}
     </>
   )

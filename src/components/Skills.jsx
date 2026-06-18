@@ -1,269 +1,103 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FiSmartphone, FiCode, FiCpu, FiSettings, FiTerminal, FiDatabase, FiLayers } from 'react-icons/fi'
-import { portfolioData } from '../data/portfolioData'
 
-export default function Skills({ lang }) {
-  const t = portfolioData.translations[lang]
-  const [activeTab, setActiveTab] = useState('all')
-  const [selectedSkill, setSelectedSkill] = useState(null)
-  const [terminalLogs, setTerminalLogs] = useState([
-    { type: 'system', text: '$ npx init-skills-analyzer' },
-    { type: 'info', text: 'Initializing interactive skills explorer...' },
-    { type: 'success', text: 'System ready. Click on any skill badge below to analyze.' }
-  ])
-
-  const handleMouseMove = (e) => {
-    const { currentTarget, clientX, clientY } = e
-    const rect = currentTarget.getBoundingClientRect()
-    const x = clientX - rect.left
-    const y = clientY - rect.top
-    currentTarget.style.setProperty("--mouse-x", `${x}px`)
-    currentTarget.style.setProperty("--mouse-y", `${y}px`)
-  }
-
-  // Expanded detailed skill data to prevent "sepi" look
-  const skillDetails = {
-    // Mobile Development
-    'Flutter': { depth: 'Production Ready', useCase: 'Membangun aplikasi mobile berpresisi tinggi dengan State Management BLoC/Provider.', project: 'VisionNeuro / NextGen Crypto' },
-    'Dart': { depth: 'Core Architecture', useCase: 'Pemrograman berorientasi objek asinkron tingkat tinggi, isolate computation.', project: 'VisionNeuro Mobile' },
-    'Firebase': { depth: 'Integration Expert', useCase: 'Autentikasi pengguna, real-time database sync, cloud messaging, FCM.', project: 'NextGen Crypto App' },
-    'Android/iOS SDK': { depth: 'Integration API', useCase: 'Konfigurasi native platform, custom method channels, setup deployment.', project: 'Flutter Native Plugins' },
-    // Web Systems
-    'React': { depth: 'Production Ready', useCase: 'Arsitektur komponen modular, state management terdistribusi, performance optimization.', project: 'E-Commerce Ecosystem' },
-    'Javascript/TypeScript': { depth: 'Core Language', useCase: 'Pemrograman fungsional, tipe data ketat, manipulasi DOM modern.', project: 'React Web Apps' },
-    'Tailwind CSS': { depth: 'Layout Architecture', useCase: 'Penerapan utility-first design system kustom, animasi transisi premium.', project: 'Luxury Portfolio' },
-    'NodeJS': { depth: 'Backend Logic', useCase: 'REST API, Express backend orchestration, serverless function routing.', project: 'Backend API Gateway' },
-    // Machine Learning
-    'Python': { depth: 'Core Language', useCase: 'Analisis data numerik, implementasi komputasi tensor, scripting otomasi.', project: 'IntelliPredict LSTM' },
-    'TensorFlow/Keras': { depth: 'Deep Learning', useCase: 'Desain arsitektur jaringan saraf tiruan, model LSTM, Convolutional Neural Networks (CNN).', project: 'IntelliPredict / VisionNeuro' },
-    'PyTorch': { depth: 'Neural Research', useCase: 'Eksperimen transfer learning, deteksi objek computer vision.', project: 'VisionNeuro Web Interface' },
-    'Scikit-Learn': { depth: 'Machine Learning', useCase: 'Pemrosesan data awal (preprocessing), model klasifikasi, regresi linear.', project: 'Predictive Analytics Models' },
-    // Tools & Databases
-    'Git & GitHub': { depth: 'Collaboration Flow', useCase: 'Penerapan GitFlow, automated CI/CD pipelines, code review workflow.', project: 'All Repositories' },
-    'Docker': { depth: 'Containerization', useCase: 'Standardisasi lingkungan development, docker-compose orchestration.', project: 'Microservices Deployment' },
-    'PostgreSQL': { depth: 'Database Architecture', useCase: 'Desain relasional database skema, query optimization, indexing.', project: 'Financial Ledger Backend' },
-    'REST APIs': { depth: 'Interface Design', useCase: 'Desain endpoint RESTful terdokumentasi, middleware auth.', project: 'Integration Middleware' },
-  }
-
-  const runSkillAnalysis = (skillName) => {
-    setSelectedSkill(skillName)
-    const detail = skillDetails[skillName] || { depth: 'Proficient', useCase: 'Pengembangan sistem terintegrasi.', project: 'General Projects' }
-    
-    setTerminalLogs([
-      { type: 'system', text: `$ npx analyze-skill --name="${skillName.toLowerCase()}"` },
-      { type: 'info', text: `Analyzing capability and production depth for "${skillName}"...` },
-      { type: 'success', text: `Depth Profile: ${detail.depth}` },
-      { type: 'info', text: `Production Use Case: ${detail.useCase}` },
-      { type: 'success', text: `Associated Flagship Project: ${detail.project}` }
-    ])
-  }
-
-  const tabs = [
-    { id: 'all', label: lang === 'id' ? 'Semua Keahlian' : 'All Capabilities', icon: FiLayers },
-    { id: 'mobile', label: lang === 'id' ? 'Aplikasi Mobile' : 'Mobile Development', icon: FiSmartphone },
-    { id: 'web', label: lang === 'id' ? 'Rekayasa Web' : 'Web Engineering', icon: FiCode },
-    { id: 'ml', label: lang === 'id' ? 'AI & Data Science' : 'Machine Learning', icon: FiCpu },
-    { id: 'tools', label: lang === 'id' ? 'Database & Tools' : 'Tools & Databases', icon: FiSettings }
+const SKILLS_DATA = {
+  id: [
+    {
+      category: "Mobile Engineering",
+      desc: "Membangun aplikasi performansi tinggi untuk multi-platform dengan arsitektur bersih.",
+      items: ["Flutter", "Dart", "Android SDK", "BLoC/Provider", "Local DB (Hive, SQLite)"]
+    },
+    {
+      category: "Web Engineering",
+      desc: "Mengembangkan antarmuka modern yang responsif dan optimasi SEO.",
+      items: ["React.js", "Next.js", "Tailwind CSS", "Three.js / WebGL", "GSAP / Framer Motion"]
+    },
+    {
+      category: "Intelligence & Backend",
+      desc: "Integrasi sistem cerdas, pemrosesan data, dan skalabilitas database.",
+      items: ["Python", "TensorFlow", "Node.js", "Express.js", "MySQL / MongoDB", "RESTful APIs"]
+    }
+  ],
+  en: [
+    {
+      category: "Mobile Engineering",
+      desc: "Building high-performance multi-platform applications with clean, production-ready architecture.",
+      items: ["Flutter", "Dart", "Android SDK", "BLoC/Provider", "Local DB (Hive, SQLite)"]
+    },
+    {
+      category: "Web Engineering",
+      desc: "Developing modern, highly responsive web interfaces with custom SEO optimizations.",
+      items: ["React.js", "Next.js", "Tailwind CSS", "Three.js / WebGL", "GSAP / Framer Motion"]
+    },
+    {
+      category: "Intelligence & Backend",
+      desc: "Integrating intelligent systems, high-efficiency data pipelines, and scalable database architectures.",
+      items: ["Python", "TensorFlow", "Node.js", "Express.js", "MySQL / MongoDB", "RESTful APIs"]
+    }
   ]
+}
 
-  const categories = portfolioData.skills
-
-  const getFilteredSkills = () => {
-    if (activeTab === 'all') return categories
-    return categories.filter(c => c.category === activeTab)
-  }
+export default function Skills({ lang = 'id' }) {
+  const [activeTab, setActiveTab] = useState(0)
+  const currentSkills = SKILLS_DATA[lang] || SKILLS_DATA['id']
 
   return (
-    <section id="skills" className="py-24 bg-transparent relative overflow-hidden">
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
+    <section className="py-24 max-w-6xl mx-auto px-6 border-t border-white/5" id="skills">
+      <div className="flex flex-col md:flex-row gap-12 md:gap-20">
         
-        {/* Title Block */}
-        <div className="text-center mb-16">
-          <motion.h2 
-            className="text-4xl md:text-5xl font-semibold tracking-tighter text-foreground mb-4 font-heading"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            {t.skillsTitle}
-          </motion.h2>
-          <motion.p 
-            className="text-xs uppercase tracking-[0.2em] text-[#c5a880] font-body max-w-xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            {t.skillsSubtitle}
-          </motion.p>
-        </div>
+        {/* Kolom Kiri: Header & Navigasi Kategori */}
+        <div className="md:w-1/3 flex flex-col justify-between py-2">
+          <div>
+            <span className="text-xs font-semibold tracking-widest text-[#c5a880] uppercase">
+              {lang === 'id' ? 'Keahlian' : 'Expertise'}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-white">Technical Core</h2>
+            <p className="text-gray-400 mt-4 text-sm leading-relaxed">
+              {lang === 'id' 
+                ? 'Fokus pada kualitas kode standar industri, struktur data yang optimal, dan integrasi kecerdasan buatan.'
+                : 'Focusing on industry-standard code quality, optimal data structures, and intelligent system integrations.'}
+            </p>
+          </div>
 
-        {/* Tab Selector */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12 border-b border-white/5 pb-6">
-          {tabs.map((tab) => {
-            const Icon = tab.icon
-            const isActive = activeTab === tab.id
-            return (
+          <div className="flex flex-col gap-2 mt-8 md:mt-0">
+            {currentSkills.map((skill, i) => (
               <button
-                key={tab.id}
-                onClick={() => { setActiveTab(tab.id); setSelectedSkill(null); }}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                  isActive 
-                    ? 'bg-[#c5a880] text-black shadow-lg shadow-[#c5a880]/15' 
-                    : 'bg-white/5 border border-white/5 text-[#8888aa] hover:text-foreground hover:bg-white/10'
+                key={i}
+                onClick={() => setActiveTab(i)}
+                className={`text-left py-3 px-4 rounded-lg text-sm transition-all duration-300 cursor-pointer ${
+                  activeTab === i 
+                    ? 'bg-white/5 text-white border-l-2 border-[#c5a880] pl-6' 
+                    : 'text-gray-500 hover:text-gray-300 pl-4'
                 }`}
               >
-                <Icon className="text-sm" />
-                <span>{tab.label}</span>
+                {skill.category}
               </button>
-            )
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* Dashboard Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {/* Kolom Kanan: Detail Deskripsi & Tag Keahlian */}
+        <div className="md:w-2/3 p-8 rounded-xl bg-white/[0.01] border border-white/5 flex flex-col justify-center min-h-[300px]">
+          <span className="text-xs text-[#c5a880] font-mono mb-2">
+            {lang === 'id' ? 'Fokus Kategori' : 'Category Focus'}
+          </span>
+          <h3 className="text-2xl font-semibold text-white mb-4">
+            {currentSkills[activeTab].category}
+          </h3>
+          <p className="text-gray-400 text-sm mb-8 leading-relaxed max-w-xl">
+            {currentSkills[activeTab].desc}
+          </p>
           
-          {/* Left / Middle: Interactive Grid */}
-          <div className="lg:col-span-2 space-y-6">
-            <AnimatePresence mode="wait">
-              <motion.div 
-                key={activeTab}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          <div className="flex flex-wrap gap-2">
+            {currentSkills[activeTab].items.map((item, index) => (
+              <span 
+                key={index} 
+                className="px-4 py-2 text-xs rounded-full bg-[#0c0c10] border border-white/5 text-gray-300 hover:border-[#c5a880]/30 transition-colors duration-300"
               >
-                {getFilteredSkills().map((skillCategory, idx) => {
-                  const Icon = skillCategory.icon
-                  let displayTitle = skillCategory.title
-                  if (skillCategory.category === 'mobile') displayTitle = t.skillsMobile
-                  if (skillCategory.category === 'web') displayTitle = t.skillsWeb
-                  if (skillCategory.category === 'backend') displayTitle = t.skillsBackend
-                  if (skillCategory.category === 'tools') displayTitle = t.skillsTools
-
-                  return (
-                    <div 
-                      key={idx}
-                      className="spotlight-card p-6 flex flex-col justify-between"
-                      onMouseMove={handleMouseMove}
-                    >
-                      <div className="relative z-10">
-                        <div className="flex items-center gap-3 mb-5">
-                          <div className="w-10 h-10 rounded-lg bg-[rgba(197,168,128,0.06)] border border-[rgba(197,168,128,0.15)] flex items-center justify-center text-xl text-[#c5a880]">
-                            <Icon />
-                          </div>
-                          <h3 className="text-base font-semibold text-foreground font-heading">
-                            {displayTitle}
-                          </h3>
-                        </div>
-
-                        <div className="flex flex-wrap gap-2">
-                          {skillCategory.tags.map((tag, tagIdx) => {
-                            const isSelected = selectedSkill === tag
-                            return (
-                              <button
-                                key={tagIdx}
-                                onClick={() => runSkillAnalysis(tag)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-body transition-all duration-300 border cursor-pointer ${
-                                  isSelected 
-                                    ? 'bg-[#c5a880] text-black border-[#c5a880]' 
-                                    : 'bg-white/5 text-[#8888aa] border-white/5 hover:text-foreground hover:bg-white/10 hover:border-[#c5a880]/30'
-                                }`}
-                              >
-                                {tag}
-                              </button>
-                            )
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </motion.div>
-            </AnimatePresence>
+                {item}
+              </span>
+            ))}
           </div>
-
-          {/* Right: Live Interactive Terminal & Analysis */}
-          <div className="space-y-6">
-            
-            {/* Terminal Window */}
-            <div className="spotlight-card p-6 font-mono text-xs border border-white/5 bg-[#08080c]/60 rounded-2xl relative overflow-hidden">
-              <div className="absolute inset-x-0 top-0 h-8 bg-[#0c0c14]/80 border-b border-white/5 flex items-center px-4 justify-between">
-                <div className="flex gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#eb5e55]" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#f4b400]" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#00b0ff]" />
-                </div>
-                <span className="text-[10px] text-[#8888aa] font-sans">skills-analyser.sh</span>
-                <FiTerminal className="text-[#8888aa]" />
-              </div>
-
-              <div className="pt-6 space-y-3 min-h-[180px]">
-                {terminalLogs.map((log, i) => (
-                  <div key={i} className="leading-relaxed break-words">
-                    {log.type === 'system' && (
-                      <span className="text-[#c5a880]">{log.text}</span>
-                    )}
-                    {log.type === 'info' && (
-                      <span className="text-[#8888aa]">{log.text}</span>
-                    )}
-                    {log.type === 'success' && (
-                      <span className="text-[#00e676]">{log.text}</span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Analysis card details */}
-            <AnimatePresence mode="wait">
-              {selectedSkill && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="spotlight-card p-6 border border-[#c5a880]/20 bg-[rgba(197,168,128,0.02)]"
-                  onMouseMove={handleMouseMove}
-                >
-                  <div className="relative z-10">
-                    <span className="text-[10px] uppercase tracking-widest text-[#c5a880] block mb-1 font-body">
-                      {lang === 'id' ? 'ANALISIS KEALIAN' : 'CAPABILITY BRIEF'}
-                    </span>
-                    <h4 className="text-xl font-bold text-foreground mb-3 font-heading">
-                      {selectedSkill}
-                    </h4>
-                    <div className="space-y-3 text-xs text-[#8888aa] leading-relaxed">
-                      <div>
-                        <strong className="text-foreground font-semibold block mb-1">
-                          {lang === 'id' ? 'Kedalaman Penguasaan:' : 'Expertise Depth:'}
-                        </strong>
-                        <span className="font-mono text-[#c5a880] bg-[#c5a880]/5 px-2 py-0.5 rounded border border-[#c5a880]/15">
-                          {skillDetails[selectedSkill]?.depth || 'Production Ready'}
-                        </span>
-                      </div>
-                      <div>
-                        <strong className="text-foreground font-semibold block mb-1">
-                          {lang === 'id' ? 'Kasus Penggunaan Produksi:' : 'Production Case:'}
-                        </strong>
-                        <p>{skillDetails[selectedSkill]?.useCase || 'Membangun fungsionalitas inti dan integrasi sistem.'}</p>
-                      </div>
-                      <div>
-                        <strong className="text-foreground font-semibold block mb-1">
-                          {lang === 'id' ? 'Implementasi Proyek:' : 'Associated Project:'}
-                        </strong>
-                        <p className="font-mono text-foreground">{skillDetails[selectedSkill]?.project || 'General Portfolio Works'}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-          </div>
-
         </div>
 
       </div>

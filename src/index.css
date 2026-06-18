@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-border: rgba(255, 255, 255, 0.04);
+  --color-border: rgba(255, 255, 255, 0.03);
   --color-input: rgba(255, 255, 255, 0.08);
   --color-ring: #c5a880;
-  --color-background: #050508;
-  --color-foreground: #e8e8f0;
+  --color-background: #030305;
+  --color-foreground: #ededed;
   --color-primary: #c5a880;
-  --color-primary-foreground: #050508;
-  --color-secondary: rgba(255, 255, 255, 0.02);
-  --color-secondary-foreground: #e8e8f0;
+  --color-primary-foreground: #030305;
+  --color-secondary: rgba(12, 12, 16, 0.5);
+  --color-secondary-foreground: #ededed;
   --color-destructive: #eb5e55;
-  --color-destructive-foreground: #e8e8f0;
+  --color-destructive-foreground: #ededed;
   --color-muted: rgba(255, 255, 255, 0.08);
   --color-muted-foreground: #8888aa;
   --color-accent: #c5a880;
-  --color-accent-foreground: #050508;
+  --color-accent-foreground: #030305;
   --color-popover: #0c0c10;
-  --color-popover-foreground: #e8e8f0;
-  --color-card: #0c0c10;
-  --color-card-foreground: #e8e8f0;
+  --color-popover-foreground: #ededed;
+  --color-card: rgba(12, 12, 16, 0.5);
+  --color-card-foreground: #ededed;
   --color-charcoal-dark: #0c0c10;
 
   --font-heading: "Outfit", "Plus Jakarta Sans", "Inter", sans-serif;
@@ -29,11 +29,49 @@
   --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+:root {
+  --color-bg: #030305;
+  --color-card: rgba(12, 12, 16, 0.5);
+  --color-border: rgba(255, 255, 255, 0.03);
+  --color-gold: #c5a880;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: #ededed;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+  /* Menggunakan 3d transform untuk memicu akselerasi GPU */
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Aurora statis yang halus dan ringan (tanpa beban animasi JS) */
+.premium-bg-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(ellipse at 50% -10%, rgba(99, 102, 241, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 10% 50%, rgba(197, 168, 128, 0.02) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 80%, rgba(99, 102, 241, 0.02) 0%, transparent 40%);
+}
+
 @utility spotlight-card {
   position: relative;
-  background: #0c0c10;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
   overflow: hidden;
   transition: border-color 0.5s;
   
@@ -43,7 +81,7 @@
     inset: 0;
     background: radial-gradient(
       800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-      rgba(197, 168, 128, 0.06),
+      rgba(197, 168, 128, 0.04),
       transparent 40%
     );
     z-index: 1;
@@ -54,11 +92,11 @@
     content: '';
     position: absolute;
     inset: -1px;
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 1px;
     background: radial-gradient(
       400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-      rgba(197, 168, 128, 0.2),
+      rgba(197, 168, 128, 0.15),
       transparent 40%
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -76,34 +114,20 @@
   }
 }
 
-@layer base {
-  body {
-    background-color: #050508;
-    color: #e8e8f0;
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-  }
-}
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050508;
+  background: #030305;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(197, 168, 128, 0.3);
+  background: rgba(197, 168, 128, 0.2);
   border-radius: 3px;
   transition: background 0.3s;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(197, 168, 128, 0.6);
+  background: rgba(197, 168, 128, 0.4);
 }
 
 /* Noise overlay */
@@ -117,28 +141,4 @@
   pointer-events: none;
   z-index: 9999;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* Backlight depth overlay */
-.backlight-glow {
-  position: fixed;
-  width: 800px;
-  height: 800px;
-  border-radius: 50%;
-  filter: blur(150px);
-  pointer-events: none;
-  z-index: -2;
-  opacity: 0.04;
-}
-
-.backlight-1 {
-  background: radial-gradient(circle, rgba(197, 168, 128, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
-  top: -200px;
-  right: -100px;
-}
-
-.backlight-2 {
-  background: radial-gradient(circle, rgba(98, 0, 234, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
-  bottom: -200px;
-  left: -100px;
 }
