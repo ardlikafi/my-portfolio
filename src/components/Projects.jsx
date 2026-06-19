@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiGithub, FiExternalLink, FiStar } from 'react-icons/fi'
 import { portfolioData } from '../data/portfolioData'
+import { CardContainer, CardBody, CardItem } from './ui/card-3d'
 
 export default function Projects({ lang }) {
   const [activeTab, setActiveTab] = useState('featured') // 'featured' or 'github'
@@ -35,7 +36,6 @@ export default function Projects({ lang }) {
           return res.json()
         })
         .then(data => {
-          // Filter out forks, limit to 6 top repos, sort by stars
           const filtered = data
             .filter(repo => !repo.fork)
             .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at))
@@ -68,15 +68,6 @@ export default function Projects({ lang }) {
     }
   }
 
-  const cardVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }
-  }
-
   return (
     <section id="projects" className="py-24 bg-transparent relative overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
@@ -84,11 +75,11 @@ export default function Projects({ lang }) {
         {/* Header Block */}
         <div className="text-center mb-12">
           <motion.h2 
-            className="text-4xl md:text-5xl font-light tracking-tight text-foreground mb-4 font-heading"
+            className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 font-heading"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "luxury" }}
+            transition={{ duration: 0.8 }}
           >
             {t.projectsTitle}
           </motion.h2>
@@ -107,7 +98,7 @@ export default function Projects({ lang }) {
         <div className="flex justify-center gap-4 mb-10">
           <button
             onClick={() => setActiveTab('featured')}
-            className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest border transition-all duration-300 font-body ${
+            className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest border transition-all duration-300 font-body cursor-pointer ${
               activeTab === 'featured'
                 ? 'bg-[#c5a880] text-black border-[#c5a880] shadow-[0_4px_20px_rgba(197,168,128,0.2)]'
                 : 'bg-transparent text-[#8888aa] border-border hover:text-foreground hover:border-[#c5a880]/30'
@@ -117,7 +108,7 @@ export default function Projects({ lang }) {
           </button>
           <button
             onClick={() => setActiveTab('github')}
-            className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest border transition-all duration-300 font-body ${
+            className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest border transition-all duration-300 font-body cursor-pointer ${
               activeTab === 'github'
                 ? 'bg-[#c5a880] text-black border-[#c5a880] shadow-[0_4px_20px_rgba(197,168,128,0.2)]'
                 : 'bg-transparent text-[#8888aa] border-border hover:text-foreground hover:border-[#c5a880]/30'
@@ -134,7 +125,7 @@ export default function Projects({ lang }) {
               <button
                 key={filter.key}
                 onClick={() => setActiveFilter(filter.key)}
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 font-body ${
+                className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 font-body cursor-pointer ${
                   activeFilter === filter.key
                     ? 'bg-[#c5a880]/15 text-[#c5a880] border border-[#c5a880]/30'
                     : 'bg-transparent text-[#8888aa] border border-transparent hover:text-foreground'
@@ -146,10 +137,10 @@ export default function Projects({ lang }) {
           </div>
         )}
 
-        {/* Featured Projects View */}
+        {/* Featured Projects View using 3D Cards */}
         {activeTab === 'featured' && (
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -161,73 +152,77 @@ export default function Projects({ lang }) {
                 const projectDesc = lang === 'id' && project.descId ? project.descId : project.desc
 
                 return (
-                  <motion.div
-                    key={project.id}
-                    className="spotlight-card flex flex-col justify-between"
-                    variants={cardVariants}
-                    onMouseMove={handleMouseMove}
-                    whileHover={{ y: -6 }}
-                  >
-                    <div className="relative z-10">
-                      {/* Image Frame */}
-                      <div className="relative overflow-hidden h-48 bg-charcoal-dark border-b border-[rgba(255,255,255,0.03)]">
-                        <img 
-                          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                          src={project.image} 
-                          alt={projectTitle} 
-                          loading="lazy"
-                        />
-                      </div>
-                      
-                      {/* Info */}
-                      <div className="p-6">
-                        <h3 className="text-xl font-light text-foreground mb-3 font-heading">
-                          {projectTitle}
-                        </h3>
-                        <p className="text-xs text-[#8888aa] leading-relaxed mb-6 font-body">
-                          {projectDesc}
-                        </p>
-                      </div>
-                    </div>
+                  <CardContainer key={project.id} className="w-full" containerClassName="w-full">
+                    <CardBody className="w-full h-full">
+                      <div
+                        className="spotlight-card flex flex-col justify-between w-full h-full"
+                        onMouseMove={handleMouseMove}
+                      >
+                        <div className="relative z-10">
+                          {/* Image Frame */}
+                          <CardItem translateZ={25} className="relative overflow-hidden h-48 bg-charcoal-dark border-b border-[rgba(255,255,255,0.03)] w-full">
+                            <img 
+                              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                              src={project.image} 
+                              alt={projectTitle} 
+                              loading="lazy"
+                            />
+                          </CardItem>
+                          
+                          {/* Info */}
+                          <div className="p-6">
+                            <CardItem translateZ={30}>
+                              <h3 className="text-xl font-bold text-white mb-3 font-heading">
+                                {projectTitle}
+                              </h3>
+                            </CardItem>
+                            <CardItem translateZ={15}>
+                              <p className="text-xs text-[#8888aa] leading-relaxed mb-6 font-body">
+                                {projectDesc}
+                              </p>
+                            </CardItem>
+                          </div>
+                        </div>
 
-                    <div className="p-6 pt-0 relative z-10">
-                      <div className="flex flex-wrap gap-1.5 mb-6">
-                        {project.tags.map((tag, idx) => (
-                          <span 
-                            key={idx} 
-                            className="px-2.5 py-1 rounded bg-[rgba(255,255,255,0.02)] border border-border text-[10px] font-mono text-[#8888aa]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                        <div className="p-6 pt-0 relative z-10">
+                          <CardItem translateZ={20} className="flex flex-wrap gap-1.5 mb-6">
+                            {project.tags.map((tag, idx) => (
+                              <span 
+                                key={idx} 
+                                className="px-2.5 py-1 rounded bg-[rgba(255,255,255,0.02)] border border-border text-[10px] font-mono text-[#8888aa]"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </CardItem>
 
-                      <div className="border-t border-[rgba(255,255,255,0.03)] pt-4 flex justify-between items-center">
-                        <span className="text-[10px] uppercase tracking-wider text-[#c5a880] font-mono">
-                          {project.category}
-                        </span>
-                        <a 
-                          href={project.github} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-xs text-[#c5a880] hover:text-white flex items-center gap-1.5 font-semibold font-body"
-                        >
-                          <FiGithub /> {t.projectsView}
-                        </a>
+                          <CardItem translateZ={15} className="border-t border-[rgba(255,255,255,0.03)] pt-4 flex justify-between items-center w-full">
+                            <span className="text-[10px] uppercase tracking-wider text-[#c5a880] font-mono">
+                              {project.category}
+                            </span>
+                            <a 
+                              href={project.github} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-xs text-[#c5a880] hover:text-white flex items-center gap-1.5 font-semibold font-body"
+                            >
+                              <FiGithub /> {t.projectsView}
+                            </a>
+                          </CardItem>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </CardBody>
+                  </CardContainer>
                 )
               })}
             </AnimatePresence>
           </motion.div>
         )}
 
-        {/* GitHub Repositories View */}
+        {/* GitHub Repositories View using 3D Cards */}
         {activeTab === 'github' && (
           <div className="w-full">
             {reposLoading ? (
-              /* Skeletal Loading Grid */
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="bg-charcoal-dark border border-border rounded-2xl p-6 animate-pulse min-h-[200px] flex flex-col justify-between">
@@ -244,7 +239,6 @@ export default function Projects({ lang }) {
                 ))}
               </div>
             ) : reposError ? (
-              /* Error State */
               <div className="text-center py-12">
                 <p className="text-red-400 font-body text-sm mb-4">
                   {lang === 'id' 
@@ -253,60 +247,64 @@ export default function Projects({ lang }) {
                 </p>
                 <button 
                   onClick={() => { setRepos([]); setReposLoading(true); }}
-                  className="px-4 py-2 border border-border rounded-full text-xs text-foreground hover:bg-white/5 font-body"
+                  className="px-4 py-2 border border-border rounded-full text-xs text-foreground hover:bg-white/5 font-body cursor-pointer"
                 >
                   {lang === 'id' ? 'Coba Lagi' : 'Try Again'}
                 </button>
               </div>
             ) : (
-              /* Repositories Grid */
               <motion.div 
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
               >
                 {repos.map(repo => (
-                  <motion.div
-                    key={repo.id}
-                    className="spotlight-card p-6 flex flex-col justify-between min-h-[220px]"
-                    variants={cardVariants}
-                    onMouseMove={handleMouseMove}
-                    whileHover={{ y: -4 }}
-                  >
-                    <div className="relative z-10">
-                      <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-lg font-light text-foreground font-heading hover:text-[#c5a880] transition-colors truncate max-w-[80%]">
-                          <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-                            {repo.name}
-                          </a>
-                        </h3>
-                        {repo.stargazers_count > 0 && (
-                          <div className="flex items-center gap-1 text-[#c5a880] text-xs font-mono">
-                            <FiStar className="fill-[#c5a880]/20" />
-                            {repo.stargazers_count}
-                          </div>
-                        )}
-                      </div>
-                      <p className="text-xs text-[#8888aa] leading-relaxed mb-6 font-body line-clamp-3">
-                        {repo.description || (lang === 'id' ? 'Tidak ada deskripsi yang disediakan.' : 'No description provided.')}
-                      </p>
-                    </div>
-
-                    <div className="relative z-10 border-t border-[rgba(255,255,255,0.03)] pt-4 flex justify-between items-center">
-                      <span className="text-xs text-[#c5a880] font-mono">
-                        {repo.language || 'JS / Dart'}
-                      </span>
-                      <a 
-                        href={repo.html_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-xs text-[#8888aa] hover:text-white flex items-center gap-1.5 font-body"
+                  <CardContainer key={repo.id} className="w-full" containerClassName="w-full">
+                    <CardBody className="w-full h-full">
+                      <div
+                        className="spotlight-card p-6 flex flex-col justify-between min-h-[220px] w-full h-full"
+                        onMouseMove={handleMouseMove}
                       >
-                        <FiGithub /> {t.projectsView}
-                      </a>
-                    </div>
-                  </motion.div>
+                        <div className="relative z-10">
+                          <div className="flex justify-between items-start mb-3">
+                            <CardItem translateZ={30} className="max-w-[80%]">
+                              <h3 className="text-lg font-bold text-white font-heading hover:text-[#c5a880] transition-colors truncate">
+                                <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                                  {repo.name}
+                                </a>
+                              </h3>
+                            </CardItem>
+                            {repo.stargazers_count > 0 && (
+                              <CardItem translateZ={25} className="flex items-center gap-1 text-[#c5a880] text-xs font-mono">
+                                <FiStar className="fill-[#c5a880]/20" />
+                                {repo.stargazers_count}
+                              </CardItem>
+                            )}
+                          </div>
+                          <CardItem translateZ={15}>
+                            <p className="text-xs text-[#8888aa] leading-relaxed mb-6 font-body line-clamp-3">
+                              {repo.description || (lang === 'id' ? 'Tidak ada deskripsi yang disediakan.' : 'No description provided.')}
+                            </p>
+                          </CardItem>
+                        </div>
+
+                        <CardItem translateZ={20} className="relative z-10 border-t border-[rgba(255,255,255,0.03)] pt-4 flex justify-between items-center w-full">
+                          <span className="text-xs text-[#c5a880] font-mono">
+                            {repo.language || 'JS / Dart'}
+                          </span>
+                          <a 
+                            href={repo.html_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-xs text-[#8888aa] hover:text-white flex items-center gap-1.5 font-body"
+                          >
+                            <FiGithub /> {t.projectsView}
+                          </a>
+                        </CardItem>
+                      </div>
+                    </CardBody>
+                  </CardContainer>
                 ))}
               </motion.div>
             )}
@@ -316,7 +314,7 @@ export default function Projects({ lang }) {
         {/* Development Standards and Metrics subsection */}
         <div className="mt-24 pt-12 border-t border-white/5">
           <div className="text-center mb-16">
-            <h3 className="text-2xl md:text-3xl font-semibold tracking-tighter text-foreground mb-3 font-heading">
+            <h3 className="text-2xl md:text-3xl font-semibold tracking-tighter text-white mb-3 font-heading">
               {lang === 'id' ? 'Standar Kualitas & Metrik Kode' : 'Code Quality Standards & Metrics'}
             </h3>
             <p className="text-xs uppercase tracking-[0.2em] text-[#c5a880] font-body">
@@ -355,23 +353,32 @@ export default function Projects({ lang }) {
                   : 'Rigorous GPU frame rendering checks, keeping applications extremely fast and responsive.'
               }
             ].map((stat, i) => (
-              <div 
-                key={i}
-                className="spotlight-card p-6 flex flex-col justify-between"
-                onMouseMove={handleMouseMove}
-              >
-                <div className="relative z-10">
-                  <span className="text-[10px] font-mono text-[#c5a880] bg-[#c5a880]/5 px-2 py-0.5 rounded border border-[#c5a880]/15 w-fit block mb-3">
-                    {stat.metric}
-                  </span>
-                  <h4 className="text-base font-bold text-foreground mb-2 font-heading">
-                    {stat.title}
-                  </h4>
-                  <p className="text-xs text-[#8888aa] leading-relaxed font-body">
-                    {stat.desc}
-                  </p>
-                </div>
-              </div>
+              <CardContainer key={i} className="w-full" containerClassName="w-full">
+                <CardBody className="w-full h-full">
+                  <div 
+                    className="spotlight-card p-6 flex flex-col justify-between w-full h-full"
+                    onMouseMove={handleMouseMove}
+                  >
+                    <div className="relative z-10">
+                      <CardItem translateZ={25}>
+                        <span className="text-[10px] font-mono text-[#c5a880] bg-[#c5a880]/5 px-2 py-0.5 rounded border border-[#c5a880]/15 w-fit block mb-3">
+                          {stat.metric}
+                        </span>
+                      </CardItem>
+                      <CardItem translateZ={30}>
+                        <h4 className="text-base font-bold text-white mb-2 font-heading">
+                          {stat.title}
+                        </h4>
+                      </CardItem>
+                      <CardItem translateZ={15}>
+                        <p className="text-xs text-[#8888aa] leading-relaxed font-body">
+                          {stat.desc}
+                        </p>
+                      </CardItem>
+                    </div>
+                  </div>
+                </CardBody>
+              </CardContainer>
             ))}
           </div>
         </div>

@@ -1,3 +1,5 @@
+import { TracingBeam } from './ui/tracing-beam'
+
 const EXPERIENCE_DATA = {
   id: [
     {
@@ -52,48 +54,52 @@ export default function Experience({ lang = 'id' }) {
 
   return (
     <section className="py-24 max-w-4xl mx-auto px-6 border-t border-white/5" id="experience">
-      <div className="mb-16">
+      <div className="mb-20 text-center">
         <span className="text-xs font-semibold tracking-widest text-[#c5a880] uppercase">
           {lang === 'id' ? 'Riwayat' : 'History'}
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold mt-2 text-white">Professional Journey</h2>
+        <h2 className="text-3xl md:text-5xl font-bold mt-2 text-white font-heading tracking-tight">
+          Professional Journey
+        </h2>
+        <p className="text-gray-400 mt-4 text-sm max-w-xl mx-auto leading-relaxed">
+          {lang === 'id' 
+            ? 'Gulir ke bawah untuk melihat tracing beam melacak perkembangan perjalanan profesional saya.'
+            : 'Scroll down to watch the tracing beam highlight the timeline of my engineering milestones.'}
+        </p>
       </div>
 
-      <div className="relative border-l border-white/5 pl-8 ml-4 space-y-16">
-        {currentExperience.map((exp, i) => (
-          <div key={i} className="relative group">
-            {/* Titik indikator timeline yang minimalis */}
-            <div className="absolute -left-[37px] top-1.5 w-4.5 h-4.5 rounded-full bg-[#030305] border border-white/10 group-hover:border-[#c5a880] transition-colors duration-300 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-[#c5a880] transition-colors duration-300" />
-            </div>
-
-            <div className="flex flex-col md:flex-row md:justify-between md:items-baseline gap-2 mb-4">
-              <div>
-                <h3 className="text-xl font-semibold text-white group-hover:text-[#c5a880] transition-colors duration-300">
-                  {exp.role}
-                </h3>
-                <span className="text-sm text-gray-500">{exp.company}</span>
+      <TracingBeam>
+        <div className="space-y-16">
+          {currentExperience.map((exp, i) => (
+            <div key={i} className="relative group">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline gap-2 mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-white group-hover:text-[#c5a880] transition-colors duration-300 font-heading">
+                    {exp.role}
+                  </h3>
+                  <span className="text-sm text-[#8888aa]">{exp.company}</span>
+                </div>
+                <span className="text-xs font-mono text-[#c5a880] bg-[#c5a880]/5 px-3 py-1 rounded-full border border-[#c5a880]/10">
+                  {exp.period}
+                </span>
               </div>
-              <span className="text-xs font-mono text-[#c5a880] bg-[#c5a880]/5 px-3 py-1 rounded-full border border-[#c5a880]/10">
-                {exp.period}
-              </span>
+
+              <p className="text-gray-400 text-sm leading-relaxed mb-4 max-w-2xl font-body">
+                {exp.desc}
+              </p>
+
+              <ul className="space-y-2 max-w-2xl">
+                {exp.bullets.map((bullet, index) => (
+                  <li key={index} className="text-xs text-[#8888aa] flex items-start gap-2">
+                    <span className="text-[#c5a880] mt-0.5">•</span>
+                    <span className="font-body">{bullet}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            <p className="text-gray-400 text-sm leading-relaxed mb-4 max-w-2xl">
-              {exp.desc}
-            </p>
-
-            <ul className="space-y-2 max-w-2xl">
-              {exp.bullets.map((bullet, index) => (
-                <li key={index} className="text-xs text-gray-500 flex items-start gap-2">
-                  <span className="text-[#c5a880] mt-0.5">•</span>
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </TracingBeam>
     </section>
   )
 }

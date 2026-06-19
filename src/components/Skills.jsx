@@ -1,105 +1,108 @@
-import { useState } from 'react'
+import React from 'react'
+import { CardContainer, CardBody, CardItem } from './ui/card-3d'
+import { EvervaultCard } from './ui/evervault-card'
 
 const SKILLS_DATA = {
   id: [
     {
       category: "Mobile Engineering",
+      codeName: "sys.mobile",
       desc: "Membangun aplikasi performansi tinggi untuk multi-platform dengan arsitektur bersih.",
-      items: ["Flutter", "Dart", "Android SDK", "BLoC/Provider", "Local DB (Hive, SQLite)"]
+      items: ["Flutter", "Dart", "Android SDK", "BLoC / Provider", "Local DB (Hive, SQLite)", "App Store / Play Store Release"]
     },
     {
       category: "Web Engineering",
-      desc: "Mengembangkan antarmuka modern yang responsif dan optimasi SEO.",
-      items: ["React.js", "Next.js", "Tailwind CSS", "Three.js / WebGL", "GSAP / Framer Motion"]
+      codeName: "sys.frontend",
+      desc: "Mengembangkan antarmuka modern yang responsif, visual interaktif, dan optimasi SEO.",
+      items: ["React.js", "Next.js", "Tailwind CSS", "Three.js / WebGL", "GSAP / Framer Motion", "SEO & Performance Budget"]
     },
     {
       category: "Intelligence & Backend",
-      desc: "Integrasi sistem cerdas, pemrosesan data, dan skalabilitas database.",
-      items: ["Python", "TensorFlow", "Node.js", "Express.js", "MySQL / MongoDB", "RESTful APIs"]
+      codeName: "sys.backend",
+      desc: "Integrasi sistem cerdas, pemrosesan data pipelines, dan skalabilitas database.",
+      items: ["Python", "TensorFlow", "Node.js", "Express.js", "MySQL / MongoDB", "RESTful APIs / WebSockets"]
     }
   ],
   en: [
     {
       category: "Mobile Engineering",
+      codeName: "sys.mobile",
       desc: "Building high-performance multi-platform applications with clean, production-ready architecture.",
-      items: ["Flutter", "Dart", "Android SDK", "BLoC/Provider", "Local DB (Hive, SQLite)"]
+      items: ["Flutter", "Dart", "Android SDK", "BLoC / Provider", "Local DB (Hive, SQLite)", "App Store / Play Store Release"]
     },
     {
       category: "Web Engineering",
-      desc: "Developing modern, highly responsive web interfaces with custom SEO optimizations.",
-      items: ["React.js", "Next.js", "Tailwind CSS", "Three.js / WebGL", "GSAP / Framer Motion"]
+      codeName: "sys.frontend",
+      desc: "Developing modern, highly responsive web interfaces with custom animations and SEO optimizations.",
+      items: ["React.js", "Next.js", "Tailwind CSS", "Three.js / WebGL", "GSAP / Framer Motion", "SEO & Performance Budget"]
     },
     {
       category: "Intelligence & Backend",
+      codeName: "sys.backend",
       desc: "Integrating intelligent systems, high-efficiency data pipelines, and scalable database architectures.",
-      items: ["Python", "TensorFlow", "Node.js", "Express.js", "MySQL / MongoDB", "RESTful APIs"]
+      items: ["Python", "TensorFlow", "Node.js", "Express.js", "MySQL / MongoDB", "RESTful APIs / WebSockets"]
     }
   ]
 }
 
 export default function Skills({ lang = 'id' }) {
-  const [activeTab, setActiveTab] = useState(0)
   const currentSkills = SKILLS_DATA[lang] || SKILLS_DATA['id']
 
   return (
     <section className="py-24 max-w-6xl mx-auto px-6 border-t border-white/5" id="skills">
-      <div className="flex flex-col md:flex-row gap-12 md:gap-20">
-        
-        {/* Kolom Kiri: Header & Navigasi Kategori */}
-        <div className="md:w-1/3 flex flex-col justify-between py-2">
-          <div>
-            <span className="text-xs font-semibold tracking-widest text-[#c5a880] uppercase">
-              {lang === 'id' ? 'Keahlian' : 'Expertise'}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-white">Technical Core</h2>
-            <p className="text-gray-400 mt-4 text-sm leading-relaxed">
-              {lang === 'id' 
-                ? 'Fokus pada kualitas kode standar industri, struktur data yang optimal, dan integrasi kecerdasan buatan.'
-                : 'Focusing on industry-standard code quality, optimal data structures, and intelligent system integrations.'}
-            </p>
-          </div>
+      {/* Title */}
+      <div className="text-center mb-20">
+        <span className="text-xs font-semibold tracking-widest text-[#c5a880] uppercase">
+          {lang === 'id' ? 'Keahlian' : 'Expertise'}
+        </span>
+        <h2 className="text-3xl md:text-5xl font-bold mt-2 text-white font-heading tracking-tight">
+          Technical Core Stack
+        </h2>
+        <p className="text-gray-400 mt-4 text-sm max-w-xl mx-auto leading-relaxed">
+          {lang === 'id' 
+            ? 'Kombinasi 3D Card Parallax dan Evervault Matrix. Dekatkan kursor Anda untuk melihat visualisasi matriks kode.'
+            : 'Double combination of 3D Card Parallax and Evervault Matrix. Hover over cards to decrypt the digital code matrix.'}
+        </p>
+      </div>
 
-          <div className="flex flex-col gap-2 mt-8 md:mt-0">
-            {currentSkills.map((skill, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveTab(i)}
-                className={`text-left py-3 px-4 rounded-lg text-sm transition-all duration-300 cursor-pointer ${
-                  activeTab === i 
-                    ? 'bg-white/5 text-white border-l-2 border-[#c5a880] pl-6' 
-                    : 'text-gray-500 hover:text-gray-300 pl-4'
-                }`}
-              >
-                {skill.category}
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* 3-Column Evervault + 3D Card Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {currentSkills.map((skill, index) => (
+          <CardContainer key={index} className="w-full" containerClassName="w-full">
+            <CardBody className="w-full h-full bg-[#0c0c10]/40 border border-white/5 rounded-2xl p-6 flex flex-col justify-between min-h-[500px]">
+              
+              {/* Evervault Card Visual Spotlight */}
+              <CardItem translateZ={30} className="w-full h-48 mb-6 overflow-hidden rounded-xl">
+                <EvervaultCard text={skill.codeName} />
+              </CardItem>
 
-        {/* Kolom Kanan: Detail Deskripsi & Tag Keahlian */}
-        <div className="md:w-2/3 p-8 rounded-xl bg-white/[0.01] border border-white/5 flex flex-col justify-center min-h-[300px]">
-          <span className="text-xs text-[#c5a880] font-mono mb-2">
-            {lang === 'id' ? 'Fokus Kategori' : 'Category Focus'}
-          </span>
-          <h3 className="text-2xl font-semibold text-white mb-4">
-            {currentSkills[activeTab].category}
-          </h3>
-          <p className="text-gray-400 text-sm mb-8 leading-relaxed max-w-xl">
-            {currentSkills[activeTab].desc}
-          </p>
-          
-          <div className="flex flex-wrap gap-2">
-            {currentSkills[activeTab].items.map((item, index) => (
-              <span 
-                key={index} 
-                className="px-4 py-2 text-xs rounded-full bg-[#0c0c10] border border-white/5 text-gray-300 hover:border-[#c5a880]/30 transition-colors duration-300"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
+              {/* Title & Desc */}
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <CardItem translateZ={25} className="text-xl font-bold text-white mb-2 font-heading">
+                    {skill.category}
+                  </CardItem>
+                  <CardItem translateZ={15} className="text-xs text-gray-400 leading-relaxed mb-6 font-body">
+                    {skill.desc}
+                  </CardItem>
+                </div>
 
+                {/* Skill Badges */}
+                <CardItem translateZ={20} className="flex flex-wrap gap-1.5 mt-auto pt-4 border-t border-white/5">
+                  {skill.items.map((item, idx) => (
+                    <span 
+                      key={idx}
+                      className="px-2.5 py-1 text-[10px] font-mono rounded bg-black/40 border border-white/5 text-gray-300 hover:border-[#c5a880]/30 transition-colors"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </CardItem>
+              </div>
+
+            </CardBody>
+          </CardContainer>
+        ))}
       </div>
     </section>
   )
